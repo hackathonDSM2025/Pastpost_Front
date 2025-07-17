@@ -123,6 +123,7 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
                 style={{
                   color: feedback.type === "wrong" ? "#e53e3e" : "#3182ce",
                   fontWeight: 300,
+                fontSize:"12"
                 }}
               >
                 {feedback.answer}
@@ -195,7 +196,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "15%",
   },
   bubble: {
-    minWidth: 240,
+    minWidth: 200,
     maxWidth: 480,
     width: "auto",
     display: "flex",
