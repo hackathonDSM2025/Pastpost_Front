@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import bubble from "../../assets/bubble.svg";
 import mascotO from "../../assets/mascotO.svg";
 import mascotX from "../../assets/mascotX.svg";
+import mascot from "../../assets/mascot.svg"
 import { fetchQuiz } from "../../services/quizApi";
 
 interface QuizProps {
@@ -110,7 +111,7 @@ const Quiz: React.FC<QuizProps> = ({
   };
 
   // 캐릭터 이미지 결정
-  let characterImg = bubble;
+  let characterImg = mascot;
   if (isAnswered && selectedAnswer !== null) {
     characterImg = selectedAnswer === current.correctAnswer ? mascotO : mascotX;
   }
@@ -120,7 +121,7 @@ const Quiz: React.FC<QuizProps> = ({
       {/* Header 완전히 제거 */}
       {/* 나머지 퀴즈 UI만 남김 */}
       <div style={styles.bubbleSection}>
-        <img src={bubble} alt="bubble" style={styles.bubble} />
+        <img src={mascot} alt="bubble" style={styles.bubble} />
         <div style={styles.question}>{current.question}</div>
       </div>
       <div style={styles.optionsSection}>

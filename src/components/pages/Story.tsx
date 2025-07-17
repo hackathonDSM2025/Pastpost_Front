@@ -123,7 +123,7 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
               <div
                 style={{
                   color: feedback.type === "wrong" ? "#e53e3e" : "#3182ce",
-                  fontWeight: 500,
+                  fontWeight: 300,
                 }}
               >
                 {feedback.answer}
@@ -184,6 +184,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     zIndex: 2,
   },
   bubbleContainer: {
+    width: "60%",
     position: "absolute",
     bottom: "32%",
     left: "40%",
@@ -226,12 +227,12 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   choiceButton: {
     padding: "12px 32px",
-    fontSize: 17,
+    fontSize: 12,
     borderRadius: 10,
     border: "none",
     background: "#e6f0ff",
     color: "#1a237e",
-    fontWeight: 500,
+    fontWeight: 300,
     cursor: "pointer",
     marginBottom: 4,
     transition: "background 0.2s",
