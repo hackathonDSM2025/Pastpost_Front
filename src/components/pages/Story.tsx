@@ -34,6 +34,7 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
   if (currentSceneId === "quiz") {
     return (
       <div style={styles.container}>
+        <Header title="퀴즈" onBack={() => {}} />
         <Quiz
           heritageId={heritageId}
           onComplete={(isAnyCorrect) => {
@@ -101,8 +102,46 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
       )}
       {/* 선택지 영역 (말풍선 위) */}
       {scene.choices && scene.choices.length > 0 && !feedback && (
-        <div style={styles.choicesContainer}></div>
+        <div style={styles.choicesContainer}>
+          {scene.choices.map((choice) => (
+            <button
+              key={choice.text}
+              onClick={() => handleChoiceClick(choice.text, choice.nextId)}
+              style={styles.choiceButton}
+            >
+              {choice.text}
+            </button>
+          ))}
+        </div>
       )}
+      {/* 캐릭터와 말풍선(대사) */}
+      <div style={styles.characterSection}>
+        {/* 말풍선(대사) - 캐릭터 바로 위 */}
+        <div style={styles.bubbleContainer}>
+          <div style={styles.bubble}>
+            {feedback && feedback.answer ? (
+              <div
+                style={{
+                  color: feedback.type === "wrong" ? "#e53e3e" : "#3182ce",
+                  fontWeight: 300,
+                }}
+              >
+                {feedback.answer}
+              </div>
+            ) : Array.isArray(scene.text) ? (
+              scene.text.map((line: string, i: number) => (
+                <p key={i} style={styles.bubbleText}>
+                  {line}
+                </p>
+              ))
+            ) : (
+              <p style={styles.bubbleText}>{scene.text}</p>
+            )}
+          </div>
+        </div>
+        {/* 캐릭터 이미지 */}
+        <img src={characterImg} alt="캐릭터" style={styles.characterImg} />
+      </div>
     </div>
   );
 };
@@ -111,13 +150,13 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     width: "100vw",
-    height: "100vh",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
   },
   background: {
     width: "100vw",
-    height: "94.5vh",
+    height: "90vh",
     position: "relative",
     backgroundSize: "cover",
     backgroundPosition: "center",

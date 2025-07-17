@@ -2,7 +2,7 @@ export const officialFlow: Record<string, OfficialScene> = {
   start: {
     id: "start",
     text: "이른 아침, 출근 준비",
-    image: "/official/img1.jpg",
+    image: "/official/guanghwa.png",
     choices: [
       {
         text: "출근한다",
@@ -16,7 +16,7 @@ export const officialFlow: Record<string, OfficialScene> = {
   gwanghwamun: {
     id: "gwanghwamun",
     text: "광화문으로 들어선다.",
-    image: "/official/img2.jpg",
+    image: "/official/ado.png",
     choices: [
       {
         text: "왼쪽 길",
@@ -42,7 +42,7 @@ export const officialFlow: Record<string, OfficialScene> = {
   palace: {
     id: "palace",
     text: "궁으로 들어간다. 임금과 논의, 업무 후 퇴근",
-    image: "/official/img3.jpg",
+    image: "/official/study.png",
     choices: [
       {
         text: "다음",

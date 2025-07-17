@@ -56,9 +56,12 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
   // Choice에 onSelectRole 전달
   const pageComponent =
     currentPage.title === "역할 선택"
-      ? React.cloneElement(currentPage.component as React.ReactElement, {
-          onSelectRole: handleSelectRole,
-        } as React.ComponentProps<any>)
+      ? React.cloneElement(
+          currentPage.component as React.ReactElement,
+          {
+            onSelectRole: handleSelectRole,
+          } as React.ComponentProps<any>
+        )
       : currentPage.component;
 
   // Story가 렌더링되는지 확인
@@ -67,13 +70,15 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
     (React.isValidElement(currentPage.component) &&
       typeof currentPage.component.type === "function" &&
       ((currentPage.component.type as { name?: string }).name === "Story" ||
-       (currentPage.component.type as { name?: string }).name === "Quiz"));
+        (currentPage.component.type as { name?: string }).name === "Quiz"));
 
   return (
     <div style={styles.container}>
       {!isStory && <Header title={currentPage.title} onBack={handlePrevPage} />}
       <Content component={pageComponent} />
-      {currentPage.flow && currentPage.flow.length > 0 && currentPage.characterImg ? (
+      {currentPage.flow &&
+      currentPage.flow.length > 0 &&
+      currentPage.characterImg ? (
         <BottomSection
           onComplete={handleNextPage}
           characterImg={currentPage.characterImg}

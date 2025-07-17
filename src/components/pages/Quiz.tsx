@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import bubble from "../../assets/bubble.svg";
 import mascotO from "../../assets/mascotO.svg";
 import mascotX from "../../assets/mascotX.svg";
-import mascot from "../../assets/mascot.svg"
+import mascot from "../../assets/mascot.svg";
 import { fetchQuiz } from "../../services/quizApi";
 
 interface QuizProps {
@@ -118,7 +118,6 @@ const Quiz: React.FC<QuizProps> = ({
 
   return (
     <div style={styles.container}>
-      {/* Header 완전히 제거 */}
       {/* 나머지 퀴즈 UI만 남김 */}
       <div style={styles.bubbleSection}>
         <img src={mascot} alt="bubble" style={styles.bubble} />

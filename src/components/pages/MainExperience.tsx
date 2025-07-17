@@ -10,7 +10,9 @@ interface MainExperienceProps {
 const MainExperience = ({ imgSrc }: MainExperienceProps) => {
   const [showIntro, setShowIntro] = useState(true);
   const [showRoleGuide, setShowRoleGuide] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<"king" | "courtLady" | "official" | null>(null);
+  const [selectedRole, setSelectedRole] = useState<
+    "king" | "courtLady" | "official" | null
+  >(null);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -26,7 +28,16 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
   };
 
   if (selectedRole) {
-    let flow: Record<string, { image?: string; choices?: { text: string; nextId: string; answer?: string }[]; text: string | string[] }> | undefined = undefined;
+    let flow:
+      | Record<
+          string,
+          {
+            image?: string;
+            choices?: { text: string; nextId: string; answer?: string }[];
+            text: string | string[];
+          }
+        >
+      | undefined = undefined;
     let startId: string | undefined = undefined;
     if (selectedRole === "king") {
       flow = KingFlow;
@@ -58,7 +69,7 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
         <div
           style={{
             width: "100vw",
-            height: "100vh",
+            height: "90vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -81,7 +92,7 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
         <div
           style={{
             width: "100vw",
-            height: "100vh",
+            height: "90vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
