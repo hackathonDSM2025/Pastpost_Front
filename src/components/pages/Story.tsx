@@ -204,7 +204,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: "center",
   },
   bubbleText: {
-    fontSize: 18,
+    fontSize: 12,
     color: "blcak",
     margin: 0,
     marginBottom: 6,
