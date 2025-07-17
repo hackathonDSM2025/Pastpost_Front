@@ -14,9 +14,24 @@ const Choice = ({ imgSrc, onSelectRole }: ChoiceProps) => {
       <div style={styles.content}>
         <img src={choiceImg} style={styles.characterImg} alt="캐릭터" />
         <div style={styles.buttonContainer}>
-          <button style={styles.button} onClick={() => onSelectRole && onSelectRole("king")}>왕</button>
-          <button style={styles.button} onClick={() => onSelectRole && onSelectRole("courtLady")}>궁녀</button>
-          <button style={styles.button} onClick={() => onSelectRole && onSelectRole("official")}>신하</button>
+          <button
+            style={styles.button}
+            onClick={() => onSelectRole && onSelectRole("king")}
+          >
+            왕
+          </button>
+          <button
+            style={styles.button}
+            onClick={() => onSelectRole && onSelectRole("courtLady")}
+          >
+            궁녀
+          </button>
+          <button
+            style={styles.button}
+            onClick={() => onSelectRole && onSelectRole("official")}
+          >
+            신하
+          </button>
         </div>
       </div>
     </div>
@@ -44,7 +59,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center", 
+    justifyContent: "center",
     alignItems: "center",
     gap: "2vh",
   },
@@ -66,7 +81,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "1rem",
     borderRadius: "8px",
     border: "none",
-    backgroundColor:"transparent",
+    backgroundColor: "transparent",
     cursor: "pointer",
   },
 };

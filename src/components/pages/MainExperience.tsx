@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import BottomSection from "../layout/BottomSection";
 import Choice from "./Choice";
+import Story from "./Story";
 import { KingFlow, courtLadyFlow, officialFlow } from "../../data/index";
-import bubble from "../../assets/bubble.svg";
 
 interface MainExperienceProps {
   imgSrc: string;
@@ -10,35 +9,39 @@ interface MainExperienceProps {
 
 const MainExperience = ({ imgSrc }: MainExperienceProps) => {
   const [showIntro, setShowIntro] = useState(true);
-  const [selectedFlow, setSelectedFlow] = useState<string[] | null>(null);
-  const [characterImg, setCharacterImg] = useState(bubble);
+  const [showRoleGuide, setShowRoleGuide] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<"king" | "courtLady" | "official" | null>(null);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    setCharacterImg(bubble); // 인트로에서는 무조건 bubble 유지
+    setShowRoleGuide(true);
+  };
+
+  const handleRoleGuideComplete = () => {
+    setShowRoleGuide(false);
   };
 
   const handleRoleSelect = (role: "king" | "courtLady" | "official") => {
-    switch (role) {
-      case "king":
-        setSelectedFlow(KingFlow);
-        // setCharacterImg(kingImg); // 이미지 필요하면 추가
-        break;
-      case "courtLady":
-        setSelectedFlow(courtLadyFlow);
-        // setCharacterImg(courtLadyImg);
-        break;
-      case "official":
-        setSelectedFlow(officialFlow);
-        // setCharacterImg(officialImg);
-        break;
-    }
+    setSelectedRole(role);
   };
 
-  const handleFlowComplete = () => {
-    console.log("체험 끝!");
-    // 필요하면 다음 동작 추가
-  };
+  if (selectedRole) {
+    let flow: Record<string, { image?: string; choices?: { text: string; nextId: string; answer?: string }[]; text: string | string[] }> | undefined = undefined;
+    let startId: string | undefined = undefined;
+    if (selectedRole === "king") {
+      flow = KingFlow;
+      startId = "king_morning";
+    } else if (selectedRole === "courtLady") {
+      flow = courtLadyFlow;
+      startId = "start";
+    } else if (selectedRole === "official") {
+      flow = officialFlow;
+      startId = "start";
+    }
+    if (flow && startId) {
+      return <Story flow={flow} startId={startId} heritageId={1} />;
+    }
+  }
 
   return (
     <div
@@ -51,17 +54,56 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
         backgroundPosition: "center",
       }}
     >
-      {!showIntro && !selectedFlow && (
-        <Choice
-          imgSrc="" // Choice 컴포넌트가 배경 이미지를 다시 그리지 않도록 빈 문자열 전달
-          onSelectRole={handleRoleSelect}
-        />
+      {showIntro && (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            fontSize: 28,
+            fontWeight: 600,
+            background: "rgba(0,0,0,0.3)",
+            cursor: "pointer",
+            zIndex: 10,
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+          onClick={handleIntroComplete}
+        >
+          화면을 클릭해서 시작하세요
+        </div>
       )}
-      {selectedFlow && (
-        <BottomSection
-          flow={selectedFlow}
-          characterImg={characterImg}
-          onComplete={handleFlowComplete}
+      {!showIntro && showRoleGuide && (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center", 
+            color: "#fff",
+            fontSize: 28,
+            fontWeight: 600,
+            background: "rgba(0,0,0,0.3)",
+            cursor: "pointer",
+            zIndex: 10,
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+          onClick={handleRoleGuideComplete}
+        >
+          어떤 역할을 체험해보고 싶어?
+        </div>
+      )}
+      {!showIntro && !showRoleGuide && !selectedRole && (
+        <Choice
+          imgSrc=""
+          onSelectRole={handleRoleSelect}
         />
       )}
     </div>

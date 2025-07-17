@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Quiz from "./Quiz";
+import Header from "../layout/Header";
 import bubble from "../../assets/bubble.svg";
 import mascotO from "../../assets/mascotO.svg";
 import mascotX from "../../assets/mascotX.svg";
@@ -9,26 +12,48 @@ interface StoryProps {
     { image?: string; choices?: Choice[]; text: string | string[] }
   >;
   startId: string;
+  heritageId: number; // 반드시 부모에서 넘겨줘야 함
 }
 
 interface Choice {
   text: string;
   nextId: string;
   answer?: string;
+  isCorrect?: boolean; // 추가: 선택지의 정답 여부
 }
 
-const Story = ({ flow, startId }: StoryProps) => {
+const Story = ({ flow, startId, heritageId }: StoryProps) => {
   const [currentSceneId, setCurrentSceneId] = useState(startId);
   const [feedback, setFeedback] = useState<null | {
     type: "correct" | "wrong";
     answer?: string;
   }>(null);
+  const navigate = useNavigate();
 
-  const scene = flow[currentSceneId] as { 
-    image?: string;
-    choices?: Choice[];
-    text: string | string[];
-  };
+  // "quiz" scene이면 Quiz만 렌더
+  if (currentSceneId === "quiz") {
+    return (
+      <div style={styles.container}>
+        <Header title="퀴즈" onBack={() => {}} />
+        <Quiz
+          heritageId={heritageId}
+          onComplete={(isAnyCorrect) => {
+            if (isAnyCorrect) {
+              navigate("/end");
+            } else {
+              navigate("/fail");
+            }
+          }}
+        />
+      </div>
+    );
+  }
+
+  const scene = flow[currentSceneId];
+  if (!scene) {
+    console.error(`Scene with id "${currentSceneId}" not found`);
+    return <div>Scene not found</div>;
+  }
 
   // 다음 scene id를 찾는 함수 (선택지가 없을 때만 사용)
   const getNextSceneId = () => {
@@ -50,8 +75,8 @@ const Story = ({ flow, startId }: StoryProps) => {
   const handleChoiceClick = (choiceText: string, nextId: string) => {
     const selectedChoice = scene.choices?.find((c) => c.text === choiceText);
     const answer = selectedChoice?.answer;
-    // 모든 선택지는 정답 처리 (궁녀/신하 flow도 동일하게 동작)
-    setFeedback({ type: "correct", answer });
+    const isCorrect = selectedChoice?.isCorrect;
+    setFeedback({ type: isCorrect ? "correct" : "wrong", answer });
     setTimeout(() => {
       setFeedback(null);
       setCurrentSceneId(nextId);
@@ -72,12 +97,8 @@ const Story = ({ flow, startId }: StoryProps) => {
       onClick={handleBackgroundClick}
     >
       {/* 배경 이미지 (image가 있으면 꽉 채움) */}
-      {scene.image && (
-        <img
-          src={scene.image}
-          alt="scene background"
-          style={styles.bgImg}
-        />
+      {scene?.image && (
+        <img src={scene.image} alt="scene background" style={styles.bgImg} />
       )}
       {/* 선택지 영역 (말풍선 위) */}
       {scene.choices && scene.choices.length > 0 && !feedback && (
@@ -127,9 +148,15 @@ const Story = ({ flow, startId }: StoryProps) => {
 
 // styles 객체는 기존과 동일하게 유지
 const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+  },
   background: {
     width: "100vw",
-    height: "100%",
+    height: "100vh",
     position: "relative",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -138,6 +165,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
+    zIndex: 1,
   },
   bgImg: {
     position: "absolute",
@@ -152,12 +180,12 @@ const styles: { [key: string]: React.CSSProperties } = {
   characterSection: {
     position: "relative",
     width: "100%",
-    height: 400, // 필요하다면
+    height: 400,
     zIndex: 2,
   },
   bubbleContainer: {
     position: "absolute",
-    bottom: "32%", // 캐릭터보다 조금 위
+    bottom: "32%",
     left: "40%",
     transform: "translateX(-50%)",
     zIndex: 3,
@@ -214,7 +242,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     left: "50%",
     transform: "translateX(-50%)",
     zIndex: 2,
-    width: "90%", // 크기는 조정 가능
+    width: "90%",
     maxWidth: "100%",
     height: "auto",
     pointerEvents: "none",

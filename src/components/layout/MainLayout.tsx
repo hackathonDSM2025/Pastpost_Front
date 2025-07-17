@@ -10,7 +10,7 @@ import { officialFlow } from "../../data/officialFlow";
 interface Page {
   component: React.ReactNode;
   title: string;
-  characterImg: string;
+  characterImg?: string;
   flow: string[];
 }
 
@@ -43,13 +43,13 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
   // 역할 선택 시 해당 Story로 분기
   if (currentPage.title === "역할 선택" && selectedRole) {
     if (selectedRole === "king") {
-      return <Story flow={KingFlow} startId="start" />;
+      return <Story flow={KingFlow} startId="start" heritageId={1} />;
     }
     if (selectedRole === "courtLady") {
-      return <Story flow={courtLadyFlow} startId="start" />;
+      return <Story flow={courtLadyFlow} startId="start" heritageId={1} />;
     }
     if (selectedRole === "official") {
-      return <Story flow={officialFlow} startId="start" />;
+      return <Story flow={officialFlow} startId="start" heritageId={1} />;
     }
   }
 
@@ -58,14 +58,21 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
     currentPage.title === "역할 선택"
       ? React.cloneElement(currentPage.component as React.ReactElement, {
           onSelectRole: handleSelectRole,
-        })
+        } as React.ComponentProps<any>)
       : currentPage.component;
+
+  // Story가 렌더링되는지 확인
+  const isStory =
+    (currentPage.title === "역할 선택" && selectedRole) ||
+    (React.isValidElement(currentPage.component) &&
+      typeof currentPage.component.type === "function" &&
+      (currentPage.component.type as { name?: string }).name === "Story");
 
   return (
     <div style={styles.container}>
-      <Header title={currentPage.title} onBack={handlePrevPage} />
+      {!isStory && <Header title={currentPage.title} onBack={handlePrevPage} />}
       <Content component={pageComponent} />
-      {currentPage.flow && currentPage.flow.length > 0 ? (
+      {currentPage.flow && currentPage.flow.length > 0 && currentPage.characterImg ? (
         <BottomSection
           onComplete={handleNextPage}
           characterImg={currentPage.characterImg}

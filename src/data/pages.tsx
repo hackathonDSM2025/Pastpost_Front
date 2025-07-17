@@ -1,11 +1,9 @@
 import React from "react";
 import {
   Heritage,
-  Choice,
   MainExperience,
 } from "../components/pages";
 import bubble from "../assets/bubble.svg";
-import choiceImg from "../assets/choiceImg.svg";
 import {
   gyeongbokgungFlow,
 } from "../data/index";
@@ -25,15 +23,9 @@ const pages = [
   {
     component: <MainExperience imgSrc="/gyeongbokgung/경복궁복원.jpg" />,
     title: "인트로",
-    characterImg: bubble,
     flow: introFlow,
   },
-  {
-    component: <Choice imgSrc="/gyeongbokgung/zero-take-hHYzAUSoHrE-unsplash.jpg" onSelectRole={() => {}} />,
-    title: "역할 선택",
-    characterImg: choiceImg,
-    flow: [],
-  },
+  // 역할 선택 페이지(Choice)는 제거
 ];
 
-export default pages;
+export default pages; 
