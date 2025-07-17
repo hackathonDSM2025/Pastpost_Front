@@ -117,13 +117,12 @@ const Quiz: React.FC<QuizProps> = ({
 
   return (
     <div style={styles.container}>
-      {/* 2. bubble 캐릭터 + 문제 */}
+      {/* Header 완전히 제거 */}
+      {/* 나머지 퀴즈 UI만 남김 */}
       <div style={styles.bubbleSection}>
         <img src={bubble} alt="bubble" style={styles.bubble} />
         <div style={styles.question}>{current.question}</div>
       </div>
-
-      {/* 3. 객관식 보기 */}
       <div style={styles.optionsSection}>
         {current.options.map((option, idx) => (
           <button

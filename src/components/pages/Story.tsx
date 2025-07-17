@@ -156,7 +156,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   background: {
     width: "100vw",
-    height: "100vh",
+    height: "94.5vh",
     position: "relative",
     backgroundSize: "cover",
     backgroundPosition: "center",

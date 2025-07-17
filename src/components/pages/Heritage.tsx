@@ -11,7 +11,7 @@ const Heritage = ({ imgSrc }: HeritageProps) => {
 const styles: { [key: string]: React.CSSProperties } = {
   backgroundImg: {
     width: "100vw",
-    height: "100vh",
+    height: "94.5vh",
     maxHeight: "100%",
     objectFit: "cover",
     display: "block",

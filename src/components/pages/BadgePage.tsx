@@ -11,6 +11,7 @@ const BadgePage = () => (
       height: "100vh",
       background: `url('/gyeongbokgung/konrad-ziemlewski-dNtwZ-VnZ30-unsplash.jpg') center/cover no-repeat, #f5f5f5`,
       position: "relative",
+      overflow: "hidden",
     }}
   >
     <div
@@ -23,25 +24,26 @@ const BadgePage = () => (
         background: "#fff",
       }}
     >
-      <Header title="경복궁" onBack={() => window.history.back()} />
+      <Header title="퀴즈 결과" onBack={() => window.history.back()} />
     </div>
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: `calc(100vh - ${HEADER_HEIGHT}px)`,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         paddingTop: HEADER_HEIGHT,
+        overflow: "hidden",
       }}
     >
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "column",
           position: "relative",
           zIndex: 2,
           background: "rgba(255,255,255,0.85)",

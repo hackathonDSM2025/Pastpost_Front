@@ -47,7 +47,7 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "94.5vh",
         position: "relative",
         backgroundImage: `url(${imgSrc})`,
         backgroundSize: "cover",
@@ -84,7 +84,7 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
             height: "100vh",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", 
+            justifyContent: "center",
             color: "#fff",
             fontSize: 28,
             fontWeight: 600,
@@ -101,10 +101,7 @@ const MainExperience = ({ imgSrc }: MainExperienceProps) => {
         </div>
       )}
       {!showIntro && !showRoleGuide && !selectedRole && (
-        <Choice
-          imgSrc=""
-          onSelectRole={handleRoleSelect}
-        />
+        <Choice imgSrc="" onSelectRole={handleRoleSelect} />
       )}
     </div>
   );

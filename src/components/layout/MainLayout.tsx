@@ -66,7 +66,8 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
     (currentPage.title === "역할 선택" && selectedRole) ||
     (React.isValidElement(currentPage.component) &&
       typeof currentPage.component.type === "function" &&
-      (currentPage.component.type as { name?: string }).name === "Story");
+      ((currentPage.component.type as { name?: string }).name === "Story" ||
+       (currentPage.component.type as { name?: string }).name === "Quiz"));
 
   return (
     <div style={styles.container}>
