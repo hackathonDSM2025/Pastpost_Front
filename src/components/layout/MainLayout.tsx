@@ -43,13 +43,13 @@ const MainLayout = ({ pages }: MainLayoutProps) => {
   // 역할 선택 시 해당 Story로 분기
   if (currentPage.title === "역할 선택" && selectedRole) {
     if (selectedRole === "king") {
-      return <Story flow={KingFlow} startId="start" heritageId={1} />;
+      return <Story flow={KingFlow} startId="start" heritageId={0} />;
     }
     if (selectedRole === "courtLady") {
       return <Story flow={courtLadyFlow} startId="start" heritageId={1} />;
     }
     if (selectedRole === "official") {
-      return <Story flow={officialFlow} startId="start" heritageId={1} />;
+      return <Story flow={officialFlow} startId="start" heritageId={2} />;
     }
   }
 

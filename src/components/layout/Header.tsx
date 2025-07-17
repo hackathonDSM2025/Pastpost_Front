@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { typography } from "../../../font/font";
 
 interface HeadProps {
   title: string;
@@ -11,7 +12,7 @@ const Header = ({ title, onBack }: HeadProps) => {
       <button onClick={onBack} style={styles.backButton} aria-label="뒤로가기">
         ←
       </button>
-      <h1 style={styles.headerTitle}>{title}</h1>
+      <h1 style={(styles.headerTitle, typography.headerMedium)}>{title}</h1>
     </header>
   );
 };
@@ -26,17 +27,15 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "5%",
   },
   backButton: {
-    fontSize: "24px",
     cursor: "pointer",
     border: "none",
     background: "none",
+    fontSize: "Bold",
     paddingRight: 10,
   },
   headerTitle: {
     flex: 1,
     textAlign: "center",
-    fontWeight: "bold",
-    fontSize: "18px",
     margin: 0,
     marginLeft: "-24px",
   },
