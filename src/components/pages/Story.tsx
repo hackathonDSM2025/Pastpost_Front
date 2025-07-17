@@ -34,7 +34,6 @@ const Story = ({ flow, startId, heritageId }: StoryProps) => {
   if (currentSceneId === "quiz") {
     return (
       <div style={styles.container}>
-        <Header title="퀴즈" onBack={() => {}} />
         <Quiz
           heritageId={heritageId}
           onComplete={(isAnyCorrect) => {

@@ -142,7 +142,8 @@ const Quiz: React.FC<QuizProps> = ({
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
     width: "100vw",
-    minHeight: "100vh",
+    height:"90%",
+    minHeight: "90%",
     background: "#f5f5f5",
     display: "flex",
     flexDirection: "column",
